@@ -42,7 +42,10 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/react-router-dom": "^5.1.5",
-    "@types/styled-components": "^5.1.2"
+    "@types/styled-components": "^5.1.2",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1"
   }
 }
