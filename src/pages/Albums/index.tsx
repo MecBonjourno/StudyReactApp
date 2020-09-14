@@ -82,7 +82,8 @@ const Dashboard: React.FC = () => {
                 <button type="submit"> <img src={searchButton} style={{maxHeight: 20 , maxWidth: 20, paddingTop: 4}} /> </button>
             </Form>
 
-              <img src={logo} alt="Logo" style={{ maxHeight: 29 , maxWidth: 127, paddingLeft: 8}} />
+            <Link to="/">   <img src={logo} alt="Logo" style={{ maxHeight: 29 , maxWidth: 127}} /> </Link> 
+
             </Header>
 
 

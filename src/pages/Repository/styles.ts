@@ -4,9 +4,15 @@ import styled from 'styled-components';
 export const Header = styled.header`
     background: #ff5221;
     display: flex;
+    flex:1;
     align-items: center;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    opacity: 0.9;
     padding: 14px 4px 14px 6px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
 
     a{ 
         display: flex;
@@ -25,46 +31,91 @@ export const Text = styled.p`
     justify-content: center;
     overflow: hidden;
     color: #000;
-    padding: 4px 16px 6px 16px;
-
-
+    padding: 18px 16px 6px 16px;
 `;
 
 export const Strong = styled.strong`
         display: flex;
         justify-content: center;
         font-size: 36px;
-        color: #3d3d4d;
+        color: #FFF;
         padding-top: 4px;
 `;
 
 export const Image = styled.img`
     display: flex;
     justify-content: center;
-    /* padding-top:10px; */
-    padding: 10px;
     margin: 0 auto;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+
+`;
+
+export const Block = styled.div`
+    padding: 300px 14px 0px 14px;
+
+`;
+
+export const Content = styled.div`
+    /* background-color: white; */
+    /* width: 90%; */
+    /* padding-top: 300px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+    
+    
+    strong {
+        text-align: center;
+        max-width: 30px;
+        font-size: 22px;
+        color: #3d3d4d;
+        padding: 0 14px 0px 14px;
+        /* padding: 0px 0px 0px 10px; */
+        
+
+
+    }
+
+    p {
+        text-align: center;
+        /* max-width: 30px; */
+        font-size: 22px;
+        font-weight: bold;
+        color: #3d3d4d;
+        padding: 0 14px 0px 14px;
+
+        /* padding: 0px 10px 0px 0px; */
+        
+
+        }
+
+
+    /* img {
         width: 130px;
         height: 130px;
         border-radius: 50%;
+    } */
 `;
 
 export const BackgroundImage = styled.img`
-div {
-    display: inline-block;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-}
 
-img {
-    pointer-events: none;
+
+    /* pointer-events: none; */
     position: absolute;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     z-index: -1;
-}
+    filter: blur(2px);
+    -webkit-filter: blur(2px);
 `;
+
 
 export const Issues = styled.div`
     margin: 0 auto;

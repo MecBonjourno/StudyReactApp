@@ -3,7 +3,7 @@ import { useRouteMatch, Link } from 'react-router-dom'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import api from '../../services/api'
 
-import { Header, Issues, Image, Text, Strong, BackgroundImage } from './styles'
+import { Header, Issues, Image, Text, Strong, BackgroundImage, Content, Block } from './styles'
 
 import Logo from '../../assets/logo.png'
 
@@ -19,9 +19,9 @@ interface RepositoryInter {
     // stargazers_count: number;
     // forks_count: number;
     // open_issues_count: number;
-    
-        image: string;
-    
+    genre: string;
+    image: string;
+    numPlays: number;
 }
 
 interface Issue {
@@ -33,10 +33,6 @@ interface Issue {
     band: string;
     image: string;
     releasedDate: string;
-    // tracks: [number];
-    // user: {
-    //     login: string;
-    // }
 }
 
 const Repository: React.FC = () => {
@@ -55,36 +51,36 @@ const Repository: React.FC = () => {
         })
     },[params.id])
 
-
-        //Outra Forma de Fazer o carregamento: 
-        // useEffect(()=>{
-        //     async function loadData(): Promise<void> {
-        //         const [ repository, issues ] = await Promise.all([
-        //     api.get(`repos/${params.repository}`),
-        //     api.get(`repos/${params.repository}/issues`)
-        //     ])
-            
-        //     console.log(repository);
-        //     console.log(issues);
-        // }
-
-        // loadData();
-        // },[params.repository])
     return (
     <>
         { repository &&  (<>
 
         <Header> 
             <Link to='/'> <FiChevronLeft size={16}/> Voltar </Link>
-            <img src={Logo} style={{ maxHeight: 29 , maxWidth: 127}} />
+            <Link to="/">   <img src={Logo} alt="Logo" style={{ maxHeight: 29 , maxWidth: 127 }} /> </Link> 
+
         </Header>
+            <BackgroundImage src={repository.image} />
 
-            <Image src={repository.image} />
+            <Block />
+
+            <Content>
+        
+            <strong>{repository.genre}</strong>
+
+            {/* <strong></strong> */}
+
                 
-            <Strong>{repository.name}</Strong>
-         <Text>{repository.biography}</Text>
+            <p>{repository.numPlays}</p>
          
+          </Content>
 
+          <Strong>{repository.name}</Strong>
+                <Image src={repository.image} />
+
+           <Text>{repository.biography}</Text>
+
+          <Strong style={{color: 'black'}}>Álbuns</Strong>
 
         <Issues> 
         {issues.map(issue => (

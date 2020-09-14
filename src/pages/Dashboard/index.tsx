@@ -1,19 +1,16 @@
-
 import React, {useState, useEffect, FormEvent} from 'react';
 import { FiChevronRight } from 'react-icons/fi'
 import { Link, } from 'react-router-dom'
-// import {Dropdown} from 'react-bootstrap'
 
 import api from '../../services/api'
 
 import logo from '../../assets/logo.png'
 import searchButton from '../../assets/search.png'
+import order from '../../assets/order_by.png'
+import noresults from '../../assets/no_results.png'
 
-
-
-import { Title, Form, Repositories, Error, Logo, Header, Button } from './styles';
+import {  Form, Repositories, Error,  Header, DropDownLi, Dropbtn, DropDownContent , SubA} from './styles';
 import Repository from '../Repository';
-
 
 interface Repository {
      name: string;
@@ -21,67 +18,24 @@ interface Repository {
      image: string;
      id: string;
      numPlays: number;
+
 }
 
 const Dashboard: React.FC = () => {
     const [ newRepo, setNewRepo ] = useState('')
+    const [ newSearch, setNewSearch ] = useState('')
     const [ inputError, setInputError ] = useState('')
 
-    const [repositories,setRepositories] = useState<Repository[]>(() => {
-
-        const storagedRepositories = localStorage.getItem('@githubExplorer:repositories');
-
-        if(storagedRepositories) {
-            return (
-                JSON.parse(storagedRepositories)
-                );
-        } else {
-            return [];
-        }
-    })
-
-    // useEffect(()=>{
-    //     localStorage.setItem('@githubExplorer:repositories', JSON.stringify(repositories))
-    // }, [repositories])
-
-    async function handleAddRepo(event: FormEvent<HTMLFormElement>): Promise<void>{
-        event.preventDefault();
-
-        if(!newRepo){
-            setInputError('Digite o Autor/Nome do repositório')
-            return;
-        }
-
-        try {
-
-        const response = await api.get<Repository>(`bands/${newRepo}`);
-
-        const repository = response.data;
-
-        setRepositories([...repositories, repository])
-        setNewRepo(''); 
-        setInputError('')
-        }catch(err){
-            setInputError('Erro na busca de Artista')
-        }
-    }
-
-    // useEffect(()=>{
-    //     api.get(`bands`).then(response => {
-    //         setRepositories(response.data)
-    //     })
-    // },[setRepositories])
+    const [repositories,setRepositories] = useState<Repository[]>([])
 
     useEffect(() => {
         async function loadBands(): Promise<void> {
           // Load Foods from API
           const response = await api.get('/bands' )
 
-    // console.log(response.data)
           setRepositories(
             response.data.map((food: Repository)=> ({
               ...food,
-            //   formattedPrice: formatValue(food.price),
             })),
           );
         }
@@ -89,100 +43,144 @@ const Dashboard: React.FC = () => {
         loadBands();
       }, [newRepo]);
 
-
-
-    //   useEffect(() => {
-    //     async function loadBands(): Promise<void> {
-    //       // Load Foods from API
-    //       const response = await api.get('/bands' )
-    //       setRepositories(response.data);
-    //     }
-    //     loadBands();
-    //   }, [newRepo]);
-
-    //   useEffect(() => {
-
        async function orderByZtoA(): Promise<void> {
         const response = await api.get('/bands' )
-               
         setRepositories(response.data.reverse());
               }
-            //   orderByPopularity();
-    //   }, [newRepo]);
-    //  
         async function revertToNormal(): Promise<void> {
             const response = await api.get('/bands' )
-                
             setRepositories(response.data);
                 }
-
         async function orderByPopularity(): Promise<void> {
-        const response = await api.get('/bands')
-        const list = response.data;
+            const response = await api.get('/bands')
+            const list = response.data;
 
-        const { params } = list;
-            
-        console.log(params)
-
-        setRepositories(list)
-        //     list.map((repository: Repository)=> ({
-        //     ...repository
-        // })).sort((a: repository,b: repository)=> a.numPlays > b.numPlays));
-
+            var arr = [];
+            for(let key in list){
+            list[key]["key"] = key;
+            arr.push(list[key]);
+            }
+            const listaComDados = arr.map((item: Repository)=> ({
+                ...item,
                 }
-      
+              ))
 
+            listaComDados.sort((a,b) => (a.numPlays > b.numPlays) ? 1 : ((b.numPlays > a.numPlays) ? -1 : 0))
 
+            setRepositories(listaComDados.reverse())
+        }
+   
+        async function orderByPopularityReverse(): Promise<void> {
+            const response = await api.get('/bands')
+            const list = response.data;
+    
+                var arr = [];
+                for(let key in list){
+                list[key]["key"] = key;
+                arr.push(list[key]);
+                }
+    
+
+                const listaComDados = arr.map((item: Repository)=> ({
+                    ...item,
+                    }
+                  ))
+    
+                listaComDados.sort((a,b) => (a.numPlays > b.numPlays) ? 1 : ((b.numPlays > a.numPlays) ? -1 : 0))
+    
+                setRepositories(listaComDados)
+            }
+
+        async function findOne(event: FormEvent<HTMLFormElement>): Promise<void> {
+            event.preventDefault();
+
+            
+            if(!newSearch){
+              setInputError('Digite o Artista')
+              return;
+          }
+            try{
+
+            const response = await api.get('/bands')
+            const list = response.data;
+    
+                var arr = [];
+                for(let key in list){
+                list[key]["key"] = key;
+                arr.push(list[key]);
+                }
+
+                const listaComDados = arr.map((item: Repository)=> ({
+                    ...item,
+                    }
+                  ))
+                  
+                    const testenovo = listaComDados.find(e => e.name === newSearch)!;
+
+                    if(!testenovo.name){
+
+                     setInputError('Não encontrado')
+
+                    }
+
+                  setRepositories([testenovo])
+                  setInputError('')
+                  } catch(err) {
+
+                  setInputError('Não encontrado')
+
+                  }
+            }
 
     return (
         <>
         <Header >
-         <Form hasError={!!inputError} onSubmit={handleAddRepo} >
-
-                <input value={newRepo} onChange={(e): void => setNewRepo(e.target.value)} placeholder="Search" ></input>
-                <button type="submit"> <img src={searchButton} style={{maxHeight: 20 , maxWidth: 20, paddingTop: 4}} /> </button>
+      {  inputError && <Error>{inputError}</Error>}
+            <Form hasError={!!inputError} onSubmit={findOne} >
+            <input value={newSearch} onChange={(e): void => setNewSearch(e.target.value)} placeholder="Search" ></input>
+            <button type="submit"> <img src={searchButton} style={{maxHeight: 20 , maxWidth: 20, paddingTop: 4}} /> </button>
             </Form>
-
-              <img src={logo} alt="Logo" style={{ maxHeight: 29 , maxWidth: 127, paddingLeft: 8}} />
+            <Link to="/">   <img src={logo} alt="Logo" style={{ maxHeight: 29 , maxWidth: 127, paddingLeft: 8 }} /> </Link> 
             </Header>
 
+
+        {  inputError && (
+          <>
+          <img src={noresults} style={{maxWidth: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 10px 10px 10px'}}/>
+          <h1 style={{ opacity: 0.8, color: '#666', justifyContent: 'center', display: 'flex'}}>Sem Resultados...</h1>
+         </>
+        )}
+
+        <DropDownLi> 
+          <Dropbtn>
+            <img src={order} style={{maxHeight: 50 , maxWidth: 50, paddingLeft: 10}}/>
+          </Dropbtn>
+          <DropDownContent>
+            {" "}
+            <SubA onClick={revertToNormal}>Voltar ao Normal</SubA>
+            <SubA onClick={orderByZtoA}>Ordem Alfabética Z - A</SubA>
+            <SubA onClick={orderByPopularity}>Mais Populares</SubA>
+            <SubA onClick={orderByPopularityReverse}>Menos Populares</SubA>
             <Link to="/albums">View Albums</Link>
-
-            <Button onClick={orderByZtoA}>Click Me</Button>
-            <Button onClick={revertToNormal}>Reverse</Button>
-            <Button onClick={orderByPopularity}>Reverse</Button>
-
-     
-
-        {/* <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Dropdown Button
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">  </Dropdown.Item>
-        </Dropdown.Menu>
-        </Dropdown> */}
+          </DropDownContent>
+        </DropDownLi>
 
 
 
-
-      {  inputError && <Error>{inputError}</Error>}
 
      <Repositories>
 
          {repositories.map(repository => (
          <Link key={repository.name} to={`/bands/${repository.id}`}> 
-            <img src={repository.image} />
-         <div>
-         <strong>{repository.name}</strong>
-         <p> {repository.numPlays} Plays</p>
-         </div>
+           <img src={repository.image} />
+            <div>
+                <strong>{repository.name}</strong>
+            <p> {repository.numPlays} Plays</p>
+            </div>
          <FiChevronRight size={24}/> 
          </Link>
          ))}
+
      </Repositories>
     </>
     );

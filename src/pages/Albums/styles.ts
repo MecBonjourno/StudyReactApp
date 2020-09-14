@@ -22,8 +22,14 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    opacity: 0.9;
     background: #ff5221;
     padding: 4px 6px 0px 6px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+
 
     a{ 
         display: flex;
@@ -98,8 +104,8 @@ export const Error = styled.span`
 
 export const Repositories = styled.div`
     margin: 0 auto;
-     padding: 0px 8px;
-    margin-top: 12px;
+    padding: 0px 8px;
+    margin-top: 80px;
     max-width: 700px;
 
     a { 

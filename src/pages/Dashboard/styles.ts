@@ -13,6 +13,7 @@ export const Title = styled.h1`
     margin-top: 80px;
 `;
 
+
 export const Logo = styled.img`
     width: 20px;
     height: 20px;
@@ -22,8 +23,14 @@ export const Header = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    opacity: 0.9;
     background: #ff5221;
     padding: 4px 6px 0px 6px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+
 `;
 
 
@@ -48,7 +55,7 @@ export const Form = styled.form<FormProps>`
         border-right: 0;
 
         ${(props)=> props.hasError && css`
-        border-color: #c53030;
+        border-color: #fc0303;
         `}
 
         &::placeholder {
@@ -74,10 +81,13 @@ export const Form = styled.form<FormProps>`
 `;
 
 export const Error = styled.span`
-    display: block;
-    color: #c53030;
-    margin-top: 10px;
-    margin-left: 8px;
+    /* display: block; */
+    /* flex: 1; */
+    color: #FFF;
+    padding-right: 4px;
+
+    /* margin-top: 10px; */
+    /* margin-left: 8px; */
 `;
 
 export const Button = styled.button`
@@ -87,7 +97,8 @@ export const Button = styled.button`
 export const Repositories = styled.div`
     margin: 0 auto;
      padding: 0px 8px;
-    margin-top: 12px;
+    margin-top: 70px;
+    margin-bottom: 12px;
     max-width: 700px;
 
     a { 
@@ -139,4 +150,89 @@ export const Repositories = styled.div`
         }
     }
 
+`;
+
+
+
+
+
+
+export const StyledUl = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+`;
+
+export const StyledLi = styled.li`
+  float: left;
+`;
+
+export const Dropbtn = styled.div`
+  display: inline-block;
+  color: white;
+  text-align: center;
+  /* padding: 14px 16px; */
+  text-decoration: none;
+  /* position: fixed; */
+    /* top: 0; */
+    /* width: 100%; */
+  /* opacity: 0.9; */
+`;
+
+export const DropDownContent = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #333;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+    
+  a{ 
+        /* display: flex; */
+        align-items: center;
+        text-decoration: none;
+        color: #a8a8b3;
+        transition: color 0.3s;
+         padding: 12px 16px;
+         display: block;
+         text-align: left;
+
+        &:hover{
+            color: #666;
+        }
+    }
+`;
+
+export const DropDownLi = styled(StyledLi)`
+  display: inline-block;
+  &:hover {
+    background-color: transparent;
+  }
+  &:hover ${DropDownContent} {
+    display: block;
+  }
+`;
+
+export const StyledA = styled.a`
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  &:hover {
+    background-color: red;
+  }
+`;
+
+export const SubA = styled.a`
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  &:hover {
+    background-color: #f1f1f1;
+  }
 `;
