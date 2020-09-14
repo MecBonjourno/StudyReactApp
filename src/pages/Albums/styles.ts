@@ -24,6 +24,21 @@ export const Header = styled.header`
     justify-content: space-between;
     background: #ff5221;
     padding: 4px 6px 0px 6px;
+
+    a{ 
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        padding-top: 6px;
+        color: #a8a8b3;
+        transition: color 0.3s;
+
+        &:hover{
+            color: #666;
+        }
+    }
+
+    
 `;
 
 
@@ -31,16 +46,17 @@ export const Form = styled.form<FormProps>`
     margin-top: 18px;
     max-width: 700px;
     margin-bottom: 12px;
-
+    /* margin-left: 12px; */
     display: flex;
     justify-content: space-between;
     align-items: space-between;
 
     input { 
         /* flex:1;  */
-        width: 130px;
+
+        width: 100px;
         height: 30px;
-        padding: 0 12px;
+        padding: 0px 0px 0px 4px;
         border: 0;
         border-radius: 5px 0 0 5px;
         color: #3A3A3A;
@@ -78,10 +94,6 @@ export const Error = styled.span`
     color: #c53030;
     margin-top: 10px;
     margin-left: 8px;
-`;
-
-export const Button = styled.button`
-    background: #000;
 `;
 
 export const Repositories = styled.div`
