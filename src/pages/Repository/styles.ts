@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const Header = styled.header`
     background: #ff5221;
     display: flex;
@@ -60,9 +59,6 @@ export const Block = styled.div`
 `;
 
 export const Content = styled.div`
-    /* background-color: white; */
-    /* width: 90%; */
-    /* padding-top: 300px; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -77,40 +73,20 @@ export const Content = styled.div`
         font-size: 22px;
         color: #3d3d4d;
         padding: 0 14px 0px 14px;
-        /* padding: 0px 0px 0px 10px; */
-        
-
-
     }
 
     p {
         text-align: center;
-        /* max-width: 30px; */
         font-size: 22px;
         font-weight: bold;
         color: #3d3d4d;
         padding: 0 14px 0px 14px;
-
-        /* padding: 0px 10px 0px 0px; */
-        
-
         }
-
-
-    /* img {
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
-    } */
 `;
 
 export const BackgroundImage = styled.img`
-
-
-    /* pointer-events: none; */
     position: absolute;
     width: 100%;
-    /* height: 100%; */
     z-index: -1;
     filter: blur(2px);
     -webkit-filter: blur(2px);
@@ -162,10 +138,6 @@ export const Issues = styled.div`
             color: #A8A8B3;
             margin-top: 4px;
          }
-        }
-        svg {
-            margin-left: auto;
-            color: #CBCBD6;
         }
     }
 

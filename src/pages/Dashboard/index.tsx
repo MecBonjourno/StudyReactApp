@@ -25,17 +25,15 @@ const Dashboard: React.FC = () => {
     const [ newRepo, setNewRepo ] = useState('')
     const [ newSearch, setNewSearch ] = useState('')
     const [ inputError, setInputError ] = useState('')
-
     const [repositories,setRepositories] = useState<Repository[]>([])
 
     useEffect(() => {
         async function loadBands(): Promise<void> {
-          // Load Foods from API
           const response = await api.get('/bands' )
 
           setRepositories(
-            response.data.map((food: Repository)=> ({
-              ...food,
+            response.data.map((item: Repository)=> ({
+              ...item,
             })),
           );
         }
@@ -133,23 +131,22 @@ const Dashboard: React.FC = () => {
             }
 
     return (
-        <>
+      <>
         <Header >
-      {  inputError && <Error>{inputError}</Error>}
-            <Form hasError={!!inputError} onSubmit={findOne} >
-            <input value={newSearch} onChange={(e): void => setNewSearch(e.target.value)} placeholder="Search" ></input>
-            <button type="submit"> <img src={searchButton} style={{maxHeight: 20 , maxWidth: 20, paddingTop: 4}} /> </button>
-            </Form>
-            <Link to="/">   <img src={logo} alt="Logo" style={{ maxHeight: 29 , maxWidth: 127, paddingLeft: 8 }} /> </Link> 
-            </Header>
+        {  inputError && <Error>{inputError}</Error>}
+              <Form hasError={!!inputError} onSubmit={findOne} >
+              <input value={newSearch} onChange={(e): void => setNewSearch(e.target.value)} placeholder="Search" ></input>
+              <button type="submit"> <img src={searchButton} style={{maxHeight: 20 , maxWidth: 20, paddingTop: 4}} /> </button>
+              </Form>
+              <Link to="/">   <img src={logo} alt="Logo" style={{ maxHeight: 29 , maxWidth: 127, paddingLeft: 8 }} /> </Link> 
+              </Header>
 
-
-        {  inputError && (
-          <>
-          <img src={noresults} style={{maxWidth: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 10px 10px 10px'}}/>
-          <h1 style={{ opacity: 0.8, color: '#666', justifyContent: 'center', display: 'flex'}}>Sem Resultados...</h1>
-         </>
-        )}
+          {  inputError && (
+            <>
+            <img src={noresults} style={{maxWidth: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 10px 10px 10px'}}/>
+            <h1 style={{ opacity: 0.8, color: '#666', justifyContent: 'center', display: 'flex'}}>Sem Resultados...</h1>
+          </>
+          )}
 
         <DropDownLi> 
           <Dropbtn>
@@ -165,11 +162,7 @@ const Dashboard: React.FC = () => {
           </DropDownContent>
         </DropDownLi>
 
-
-
-
      <Repositories>
-
          {repositories.map(repository => (
          <Link key={repository.name} to={`/bands/${repository.id}`}> 
            <img src={repository.image} />
@@ -180,7 +173,6 @@ const Dashboard: React.FC = () => {
          <FiChevronRight size={24}/> 
          </Link>
          ))}
-
      </Repositories>
     </>
     );
