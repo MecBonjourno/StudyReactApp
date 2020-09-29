@@ -121,8 +121,6 @@ const Dashboard: React.FC = () => {
          <Link to="/">   <img src={logo} alt="Logo" style={{ maxHeight: 29 , maxWidth: 127}} /> </Link> 
         </Header>
 
-      {/* { inputError && <Error>{inputError}</Error>} */}
-
       {  inputError && (
           <>
             <img src={noresults} style={{maxWidth: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 10px 10px 10px'}}/>
